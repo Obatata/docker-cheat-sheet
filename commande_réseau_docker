@@ -1,0 +1,59 @@
+# Les associations entre les ports des contenairs et 
+# les ports de la machine physique
+docker container port <NAME/ID>
+
+
+# Afficher l'adresse IP du container parmis les informations
+# de la commande inspect
+docker container inspect --format '{{ .NetworkSettings.IPAddress }}' <NAME/ID>
+
+
+# Affichier les réseaux existants dans docker 
+docker network ls
+
+
+############### Réseau bridge ###############################
+#############################################################
+# réseau bridge : Docker0 corresponds au réseau virtuel par défaut 
+# qui est naté derrière l'adresse IP de l'hôte
+
+# Afficher les détails sur le réseau Docker indiqué 
+# et montre aussi les contenairs qui lui sont attachés 
+docker network inspect bridge
+#############################################################
+
+############### Réseau host ###############################
+############################################################# 
+# réseau host : corresponds au réseau qui attache  les  contenairs directement
+# à l'hôte (sans NAT) 
+################################################################
+
+
+############### Réseau None ################################
+############################################################
+# réseau None : corresponds au réseau qui enlève l'interface et0 
+# du conteneur et qui ne laisse que l'interface localhost  d'existante
+
+
+
+# créer un nouveau réseau 
+docker network create <NAME>
+# par defaut le réseau il utilise le driver bridge
+# ==> tous les contenairs reliés à ce réseau auront une adresse attribuée
+
+
+
+# relier un contenair à un réseau à la création
+docker container run --name <NAME/ID> --network <Name reseau> --detach nginx
+
+
+
+# relié un contenair dèja crée à un réseau
+docker network connect <network_name> <container_nam>
+# permets de relier un contenair a un nouveau réseau 
+# mais n'enlève pas l'attachement au réseau précédent
+
+
+
+# détacher un contenair d'un réseau (dans le cas où il est dèja connecté)
+docker network disconnect <network_name> <container_nam>
