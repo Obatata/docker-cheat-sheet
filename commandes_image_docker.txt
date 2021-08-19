@@ -1,0 +1,55 @@
+## Pull/importer une image depui Docker Hub
+## il faut copier la commande en rapport avec l'image docker sur le docker hub
+## la commande est comme suit : 
+docker pull <Name Image>
+
+
+## Afficher tout les images 
+docker image ls -a
+
+
+## Anayser le cach d'une image 
+docker image history <Name Image>
+## Afficher toutes couches et modifications réalisées from scratch (depuis le début)
+
+
+## Affichier un JSON contenant les métadonnées de l'image
+docker image inspect <Name Image>
+# les information importantes dans ce JSON sont : 
+##### 1 - Ports exposés
+##### 2 - ID de l'image 
+##### 3 - Variables d'environnement 
+##### 4 - Commande lancée au démarrage du conteneur 
+
+
+## Taguer/pointer/copiet une image source vers une image cible 
+docker image tag <SOURCE_IMAGE>:<TAG> <TARGET_IMAGE>:<TAG>
+
+#### Attention !!!!!! #####
+SI on veut pusher l'image taguée dans docker 
+Lors de la création il faut ajouter le nom d'utilisateur de docker hub avec slash
+<SOURCE_IMAGE> = <oussamabatata/SOURCE_IMAGE>
+Ensuite se connecter à docker en ligne de commandes : docker login  
+###########################################
+### La tag (version de l'image) est un pointeur vers un commit specifique de l'image
+### exmple : le tag "latest" correspond au tag par défaut (si aucun tag n'est specifié)
+
+
+# connection à docker hub 
+docker login
+
+# deconnection de docker hub
+docker logout
+
+
+### Lancer sa propre image à partir d'un Dockerfile
+docker image build -t <IMAGE_NAME>:<TAG> .
+## Il impératif de lancer la commande dans le dossier où se trouve le Dockerfile
+# l'option -t indique que l'image va être taguée
+## Attention à ne pas oublier le point à la fin de commande 
+
+
+
+
+ 
+

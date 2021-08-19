@@ -1,0 +1,56 @@
+#version docker 
+docker --version
+
+# info
+docker info
+
+# afficher les contenaires crées
+docker container ls
+
+# afficher les contenaires crées en plus les containaiers arrêtés
+docker container ls -a
+
+# Démarrer un nouveau contenaire de l'image nginx sans detach (pas d'accés au temrinal)
+docker container run --publish 80:80 nginx
+
+# Démarrer un nouveau contenaire de l'image nginx avec detach  (accés au terminal)
+docker container run --detach --publish 80:80 nginx
+
+# Démarrer un nouveau contenaire de l'image nginx avec detach (accés au terminal) et avec specification nom
+docker container run --detach --publish 80:80 --name nginx_batata nginx
+
+# Arrêter un container ==> après arrêt le contenair ne sera visible que via la "docker commande container ls -ls"
+docker container stop <NAME/ID>
+
+# Supprimer container (la commande ne marchera pas si le contenair est en marche, alors il faut le stoper d'abord)
+docker container rm  <NAME/ID>
+
+# Supprimer contai même s'il est en marche
+docker container rm -f  <NAME/ID>
+
+# Afficher le log d'in container
+docker container logs <NAME/ID>
+ 
+# Afficher le/les processus en cours d'execution sur un container
+ docker container top <NAME/ID>
+ 
+# Afficher les information d'un contenair au format Json (adresse IP, ...)
+docker container inspect <NAME/ID>
+
+# Afficher les statistiques RAM et CPU  du container
+docker container stats <NAME/ID>
+
+#------------------------------------------------------------------------
+# Naviguer à l'interieur d'un contenair et y executer des commandes : lors  Création
+docker container run -it --name <NAME/ID> --publish 80:80 nginx bash
+### t : simuler un vrai terminal
+### i : garder une session ouverte
+### bash : donner un terminal existant à l'interieur du contenair
+
+
+# Naviguer à l'interieur d'un container : déja crée
+docker container exec -it <NAME/ID> bash
+
+# Attention dans certaines images on utilisera "sh" à la place "bash" 
+#-------------------------------------------------------------------------
+
